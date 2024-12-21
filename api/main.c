@@ -204,6 +204,12 @@ static napi_value Html_Table(napi_env env,napi_callback_info info ){
     return res;
 }
 
+static napi_value Email(napi_env env,napi_callback_info info){
+    napi_value __get_email;
+
+    return __get_email;
+}
+
 
 static napi_value CreateBS4Object(napi_env env, napi_callback_info info) {
     napi_value bs4_object, init_bs4, get_title,__prettify_string,__table;
