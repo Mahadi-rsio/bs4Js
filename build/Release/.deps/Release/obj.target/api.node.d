@@ -1,0 +1,1 @@
+cmd_Release/obj.target/api.node := aarch64-linux-android-clang++ -o Release/obj.target/api.node -shared -rdynamic -fPIC  -Wl,-soname=api.node -Wl,--start-group Release/obj.target/api/api/main.o -Wl,--end-group -L -L -lpython3.12 -ldl -llog
