@@ -1,5 +1,4 @@
 const { BeautifulSoup } = require('./../build/Release/api.node')
-const fs = require('fs')
 
 const parser = BeautifulSoup()
 
@@ -13,3 +12,5 @@ parser.InitBs4('<title>BeautifulSoup</title><p>hello world<span></span><img></im
 parser.Table()
 
 console.log(parser)
+
+console.log(parser.findEmails())

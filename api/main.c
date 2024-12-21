@@ -16,6 +16,17 @@
 static PyObject *BeautifulSoup_Object = NULL;
 static int python_initialized = 0;
 
+void Path(const char * url){
+
+    PyObject * sys = PyImport_ImportModule("sys");
+    PyObject * path = PyObject_GetAttrString(sys, "path");
+
+    PyList_Append(path, PyUnicode_FromString(url));
+
+    Py_DECREF(path);
+    Py_DECREF(sys);
+ 
+}
 
 // Initialize Python Interpreter
 static int py_initialize() {
@@ -169,15 +180,7 @@ static napi_value Html_Table(napi_env env,napi_callback_info info ){
         fprintf(stdout, "bs4 not initialized");
 
     }
-
-    PyObject * sys = PyImport_ImportModule("sys");
-    PyObject * path = PyObject_GetAttrString(sys, "path");
-
-    PyList_Append(path, PyUnicode_FromString("api/py_modules"));
-
-    Py_DECREF(path);
-    Py_DECREF(sys);
-    
+    Path("api/py_modules");
     PyObject * __bs4_main = PyImport_ImportModule("bs4_extra");
 
     if (__bs4_main==NULL) {
@@ -207,26 +210,44 @@ static napi_value Html_Table(napi_env env,napi_callback_info info ){
 static napi_value Email(napi_env env,napi_callback_info info){
     napi_value __get_email;
 
+    Path("api/py_modules");
+    PyObject * core = PyImport_ImportModule("bs4_core");
+
+    if (core==NULL) {
+        PyErr_Print();
+        fprintf(stderr, "bs4_core not imported");
+    }
+
+    PyObject * call_gat_email = PyObject_GetAttrString(core, "find_email");
+    PyObject * args = PyTuple_Pack(1,BeautifulSoup_Object);
+
+
+    if (!PyCallable_Check(core)) {
+        fprintf(stderr, "find_email not called");
+    }
+
+
+    napi_get_undefined(env, &__get_email);
     return __get_email;
 }
 
 
 static napi_value CreateBS4Object(napi_env env, napi_callback_info info) {
-    napi_value bs4_object, init_bs4, get_title,__prettify_string,__table;
+    napi_value bs4_object, init_bs4, get_title,__prettify_string,__table,__emails;
 
     napi_create_object(env, &bs4_object);
     napi_create_function(env, "InitBs4", NAPI_AUTO_LENGTH, Init_BeautifulSoup, NULL, &init_bs4);
     napi_create_function(env, "GetTitle", NAPI_AUTO_LENGTH, GetTitle, NULL, &get_title);
     napi_create_function(env, "Prettify", NAPI_AUTO_LENGTH, GetPrettify, NULL, &__prettify_string);
     napi_create_function(env, "Table", NAPI_AUTO_LENGTH, Html_Table, NULL, &__table);
-
+    napi_create_function(env, "findEmails", NAPI_AUTO_LENGTH,Email, NULL, &__emails);
 
 
     napi_set_named_property(env, bs4_object, "InitBs4", init_bs4);
     napi_set_named_property(env, bs4_object, "GetTitle", get_title);
     napi_set_named_property(env, bs4_object, "Prettify", __prettify_string);
     napi_set_named_property(env, bs4_object, "Table", __table);
-
+    napi_set_named_property(env, bs4_object, "findEmails", __emails);
 
     return bs4_object;
 }

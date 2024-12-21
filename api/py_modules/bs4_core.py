@@ -16,7 +16,7 @@ html_content = '''
 
 
 
-def find_email(soup: BeautifulSoup):
+def find_email(soup):
     emails = re.findall(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', soup.get_text())
     if emails:
         print("Emails found:")
