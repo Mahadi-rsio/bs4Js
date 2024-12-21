@@ -437,17 +437,6 @@
     "want_separate_host_toolset": 1,
     "nodedir": "/data/data/com.termux/files/home/.cache/node-gyp/22.8.0",
     "python": "/data/data/com.termux/files/usr/bin/python3",
-    "standalone_static_library": 1,
-    "user_agent": "npm/10.8.2 node/v22.8.0 android arm64 workspaces/false",
-    "userconfig": "/data/data/com.termux/files/home/.npmrc",
-    "local_prefix": "/data/data/com.termux/files/home/root/kk",
-    "prefix": "/data/data/com.termux/files/usr",
-    "npm_version": "10.8.2",
-    "cache": "/data/data/com.termux/files/home/.npm",
-    "node_gyp": "/data/data/com.termux/files/usr/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js",
-    "foreground_scripts": "true",
-    "globalconfig": "/data/data/com.termux/files/usr/etc/npmrc",
-    "init_module": "/data/data/com.termux/files/home/.npm-init.js",
-    "global_prefix": "/data/data/com.termux/files/usr"
+    "standalone_static_library": 1
   }
 }

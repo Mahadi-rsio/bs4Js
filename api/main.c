@@ -16,7 +16,6 @@
 static PyObject *BeautifulSoup_Object = NULL;
 static int python_initialized = 0;
 
-extern PyObject * html_data_table(PyObject *self, PyObject *args);
 
 // Initialize Python Interpreter
 static int py_initialize() {
@@ -162,7 +161,7 @@ static napi_value Html_Table(napi_env env,napi_callback_info info ){
 
     napi_get_cb_info(env, info,NULL, NULL, NULL,NULL);
 
-    fprintf(stdout, "Html_Table");
+    fprintf(stdout, "\n<-- Showing Html Element Table -->\n\n");
 
     napi_get_undefined(env,&res);
 
@@ -190,7 +189,6 @@ static napi_value Html_Table(napi_env env,napi_callback_info info ){
 
     if (PyCallable_Check(Table)) {    
         PyObject * args = PyTuple_Pack(1,BeautifulSoup_Object);
-        fprintf(stdout, "Building args\n");
 
         PyObject * OUT = PyObject_CallObject(Table, args) ;
 
